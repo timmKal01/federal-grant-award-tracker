@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "federal-grant-award-tracker",
+    "title": "Federal Grant Award Tracker — Who Just Got Funded",
+    "description": "Track federal grants and cooperative agreements that have actually been awarded, not just opportunities to apply. Search by keyword, agency, recipient state, or minimum amount via official USAspending.gov data.",
+    "version": "0.1",
+    "meta": {
+        "templateId": "custom-no-proxy"
+    },
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "../Dockerfile"
+}

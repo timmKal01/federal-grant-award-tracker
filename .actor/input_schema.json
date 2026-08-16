@@ -1,0 +1,49 @@
+{
+    "title": "Federal Grant Award Tracker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "keyword": {
+            "title": "Keyword",
+            "type": "string",
+            "editor": "textfield",
+            "description": "Free-text search across grant descriptions (e.g. \"climate resilience\", \"opioid treatment\", \"broadband\"). Leave blank to skip keyword filtering."
+        },
+        "agency": {
+            "title": "Awarding agency",
+            "type": "string",
+            "editor": "textfield",
+            "description": "Exact top-tier awarding agency name (e.g. \"Department of Health and Human Services\", \"National Science Foundation\"). Leave blank for all agencies."
+        },
+        "recipientState": {
+            "title": "Recipient state",
+            "type": "string",
+            "editor": "textfield",
+            "description": "Two-letter US state code to limit to recipients located there (e.g. \"CA\"). Leave blank for all states."
+        },
+        "minAwardAmount": {
+            "title": "Minimum award amount (USD)",
+            "type": "integer",
+            "editor": "number",
+            "description": "Only return awards at or above this dollar amount."
+        },
+        "daysBack": {
+            "title": "Days back",
+            "type": "integer",
+            "editor": "number",
+            "description": "How many days back from today to search, by award start date.",
+            "default": 30,
+            "minimum": 1,
+            "maximum": 365
+        },
+        "maxResults": {
+            "title": "Max results",
+            "type": "integer",
+            "editor": "number",
+            "description": "Maximum number of awards to return, largest award amount first.",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 100
+        }
+    }
+}

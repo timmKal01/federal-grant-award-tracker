@@ -1,0 +1,11 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Output schema of Federal Grant Award Tracker",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Awards",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        }
+    }
+}
