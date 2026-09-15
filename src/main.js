@@ -10,6 +10,42 @@ const GRANT_SEARCH_EVENT = 'grant-search';
 
 const API_URL = 'https://api.usaspending.gov/api/v2/search/spending_by_award/';
 
+const TRANSIENT_STATUSES = new Set([429, 500, 502, 503, 504]);
+const MAX_ATTEMPTS = 4;
+const REQUEST_TIMEOUT_MS = 15_000;
+
+function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function fetchWithRetry(url, options) {
+    let lastError;
+    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+        let res;
+        try {
+            res = await fetch(url, { ...options, signal: controller.signal });
+        } catch (err) {
+            lastError = err.name === 'AbortError' ? new Error(`Request timed out after ${REQUEST_TIMEOUT_MS}ms: ${url}`) : err;
+            if (attempt < MAX_ATTEMPTS) {
+                await sleep(1000 * 2 ** (attempt - 1));
+                continue;
+            }
+            throw lastError;
+        } finally {
+            clearTimeout(timeoutId);
+        }
+        if (res.ok) return res;
+        if (!TRANSIENT_STATUSES.has(res.status)) {
+            throw new Error(`USAspending.gov API request failed: ${res.status} ${res.statusText}`);
+        }
+        lastError = new Error(`USAspending.gov API request failed: ${res.status} ${res.statusText}`);
+        if (attempt < MAX_ATTEMPTS) await sleep(1000 * 2 ** (attempt - 1));
+    }
+    throw lastError;
+}
+
 function isoDate(d) {
     return d.toISOString().slice(0, 10);
 }
@@ -50,15 +86,11 @@ const requestBody = {
 
 log.info('Searching USAspending.gov for grant awards', { filters });
 
-const res = await fetch(API_URL, {
+const res = await fetchWithRetry(API_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(requestBody),
 });
-
-if (!res.ok) {
-    throw new Error(`USAspending.gov API request failed: ${res.status} ${res.statusText}`);
-}
 
 const data = await res.json();
 const results = data.results ?? [];
