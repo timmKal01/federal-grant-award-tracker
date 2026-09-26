@@ -1,0 +1,63 @@
+{
+    "actorSpecification": 1,
+    "fields": {},
+    "views": {
+        "overview": {
+            "title": "Overview",
+            "transformation": {
+                "fields": [
+                    "awardId",
+                    "recipientName",
+                    "awardAmount",
+                    "awardingAgency",
+                    "awardingSubAgency",
+                    "awardType",
+                    "startDate",
+                    "endDate",
+                    "usaspendingUrl"
+                ]
+            },
+            "display": {
+                "component": "table",
+                "properties": {
+                    "awardId": {
+                        "label": "Award ID",
+                        "format": "text"
+                    },
+                    "recipientName": {
+                        "label": "Recipient name",
+                        "format": "text"
+                    },
+                    "awardAmount": {
+                        "label": "Award amount",
+                        "format": "number"
+                    },
+                    "awardingAgency": {
+                        "label": "Awarding agency",
+                        "format": "text"
+                    },
+                    "awardingSubAgency": {
+                        "label": "Awarding sub agency",
+                        "format": "text"
+                    },
+                    "awardType": {
+                        "label": "Award type",
+                        "format": "text"
+                    },
+                    "startDate": {
+                        "label": "Start date",
+                        "format": "text"
+                    },
+                    "endDate": {
+                        "label": "End date",
+                        "format": "text"
+                    },
+                    "usaspendingUrl": {
+                        "label": "Usaspending URL",
+                        "format": "link"
+                    }
+                }
+            }
+        }
+    }
+}
