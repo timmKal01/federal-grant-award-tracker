@@ -67,5 +67,5 @@ search returns 0 awards or 100.
 
 ## Related products
 
-- [Grant Opportunity Tracker](https://github.com/timmKal01/grant-opportunity-tracker) — new open funding opportunities from Grants.gov, the "before" to this actor's "after"
-- [Federal Contract Award Tracker](https://github.com/timmKal01/federal-contract-award-tracker) — the same USAspending.gov data for contracts instead of grants
+- [Federal Grant Finder](https://apify.com/m_ctim/grant-opportunity-tracker): new open funding opportunities from Grants.gov, the "before" to this actor's "after"
+- [Federal Contract Awards](https://apify.com/m_ctim/federal-contract-award-tracker): the same USAspending.gov data for contracts instead of grants
